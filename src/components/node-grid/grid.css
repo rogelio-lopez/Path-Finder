@@ -1,0 +1,12 @@
+.grid{
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  height: calc(100% - 200px);
+}
+
+.node {
+  height: calc(3.3% - 2px);
+  width: calc(2% - 2px);
+  border: solid lightgrey 1px;
+}
