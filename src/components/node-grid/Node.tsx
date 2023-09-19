@@ -4,22 +4,26 @@ interface NodeProp {
   nodeInfo: {
     isStart: boolean;
     isEnd: boolean;
-    previous: object | null;
-    next: object | null;
-    pointX: number;
-    pointY: number;
-    coordinate: string;
+    isPath: boolean;
+    parent: NodeProp | null;
+    x: number;
+    y: number;
   };
 }
 
 const Node: React.FC<NodeProp> = ({ nodeInfo }) => {
 
+
+
   return (
     // id = point
-    <div id={nodeInfo.coordinate} className="node">
+    <div
+      id={`${nodeInfo.x}-${nodeInfo.y}`}
+      className={`node ${nodeInfo.isStart ? 'start' : nodeInfo.isEnd ? 'end' : ''}`}>
     </div>
   )
 }
 
-//errors everywhere
+//set css class/node status as useState so it refreshes when state changes
+
 export default Node;

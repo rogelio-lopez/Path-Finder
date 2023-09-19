@@ -2,22 +2,28 @@ import React from 'react';
 import Node from './Node';
 import './grid.css';
 
+function getNeighbors(x: number, y: number): number[] { // add extra [] to return type
+  return [x, y];
+}
+
 const Grid: React.FC = () => {
 
+  const limitX: number = 50;
+  const limitY: number = 30;
   const grid: object[][] = [];
 
-  for (let y = 0; y <= 29; y++) {
-    grid[y] = []; //initialize arr in arr
+  for (let y = 0; y <= limitY - 1; y++) {
+    grid[y] = [];
 
-    for (let x = 0; x <= 49; x++) {
+    for (let x = 0; x <= limitX - 1; x++) {
       grid[y][x] = {
-        isStart: false,
-        isEnd: false,
-        previous: null,
-        next: null,
-        pointX: x,
-        pointY: y,
-        coordinate: `${x},${y}`
+        isStart: (x == 3 && y == 12) || false,
+        isEnd: (x == 44 && y == 16) || false,
+        isPath: false,
+        parent: null,
+        x: x,
+        y: y,
+        neighbors: getNeighbors(x, y)
       }
     }
   }
@@ -26,7 +32,7 @@ const Grid: React.FC = () => {
     <div className="grid">
       {grid.map(y =>
       (
-        y.map(x => <Node nodeInfo={x} key={x.coordinate} />)
+        y.map(nde => <Node nodeInfo={nde} key={`${nde.x}-${nde.y}`} />)
       )
       )}
     </div>
@@ -34,3 +40,8 @@ const Grid: React.FC = () => {
 }
 
 export default Grid;
+
+
+/* TODO 
+ * add neighbor nodes 
+ * */

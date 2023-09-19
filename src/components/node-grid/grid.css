@@ -6,7 +6,19 @@
 }
 
 .node {
-  height: calc(3.3% - 2px);
+  height: 3.3%;
   width: calc(2% - 2px);
   border: solid lightgrey 1px;
+}
+.node.start{
+  background: green;
+}
+.node.end{
+  background: red;
+}
+.node.obstacle{
+  background: lightgrey;
+}
+.node.path{
+  background: blue;
 }
