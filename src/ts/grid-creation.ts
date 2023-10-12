@@ -23,21 +23,45 @@ export default function createGrid(limitX = 50, limitY = 30): NodeObj[][] {
 
 
 function getNeighbors(x: number, y: number, limitx: number, limity: number): number[][] { // add extra [] to return type
-  if (x == 0 || x == limitx) {   // Corner and Y side nodes
+  // Corner and Y side nodes
+  if (x == 0 || x == limitx) {
+    // Top corners
     if (y == 0) {
-      return [[x, y + 1], [...(x == 0) ? [x + 1] : [x - 1], y]]; // Top left, top right
+      if (x == 0) {
+        return [[x + 1, y], [x, y + 1]];
+      }
+      else {
+        return [[x, y + 1], [x - 1, y]];
+      }
     }
+    // Bottom corners
     else if (y == limity) {
-      return [[x, y - 1], [...(x == 0) ? [x + 1] : [x - 1], y]]; // Bottom corners
+      if (x == 0) {
+        return [[x, y - 1], [x + 1, y]];
+      }
+      else {
+        return [[x, y - 1], [x - 1, y]];
+      }
+    }
+    // Y-axis sides 
+    else {
+      if (x == 0) {
+        return [[x, y - 1], [x + 1, y], [x, y + 1]];
+      }
+      else {
+        return [[x, y - 1], [x, y + 1], [x - 1, y]];
+      }
+    }
+  }
+  else if (y == 0 || y == limity) {   // X-axis side nodes 
+    if (y == 0) {
+      return [[x + 1, y], [x, y + 1], [x - 1, y]];
     }
     else {
-      return [[...(x == 0) ? [x + 1] : [x - 1], y], [x, y - 1], [x, y + 1]]; // Y sides 
+      return [[x, y - 1], [x + 1, y], [x - 1, y]];
     }
   }
-  else if (y == 0 || y == limity) {   // X side nodes 
-    return [[x, ...(y == 0) ? [y + 1] : [y - 1]], [x + 1, y], [x - 1, y]];
-  }
   else {   // Middle nodes
-    return [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]];
+    return [[x, y - 1], [x + 1, y], [x, y + 1], [x - 1, y]];
   }
 }

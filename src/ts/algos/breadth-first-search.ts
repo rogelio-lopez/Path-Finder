@@ -1,33 +1,49 @@
-import createGrid from '../grid-creation.ts';
-import { NodeObj } from '../interfaces.ts';
-
-const grid: NodeObj[][] = createGrid();
-
-console.log(bfs([3, 12], [44, 16], grid))
-
-
-/* Use grid.isPath as a check to see if its been visited */
-
 //Breadth First Search
-export default function bfs(start: number[], end: number[], grid: NodeObj[][]): number[][] {
 
-  let path: number[][] = [];
+import { NodeObj } from '../interfaces.ts';
+import { cordinatesEqual } from '../helper-funcs.ts';
+
+export default function breadthFirst(start: number[], end: number[], grid: NodeObj[][]): number[][] {
+
   let queue: number[][] = [start];
-  let foundEnd: boolean = false;
 
-  do {
+  // grid[y][x] to find the node 
+  // queue.push() to add to the end of array
+  // Use queue.slice(1) to return new array without first element
+
+
+  for (let j = 0; j < 10; j++) {
+    /* TODO
+     * 1. testing if adding to queue works
+     * 2. Refresh queue and take out first element
+     * Expected result []
+    */
     let x = queue[0][0];
     let y = queue[0][1];
 
-    //go through neighbors of first element in queue
+    // Use grid.isPath as a check to see if its been visited 
+    //go through neighbors of first element in queue (careful with infinite loop)
     for (let i = 0; i < grid[x][y].neighbors[i].length; i++) {
       let neighbor = grid[x][y].neighbors[i];
 
-      //if ()
+      if (cordinatesEqual(neighbor, end)) {
+        // End loop & call walk back function outside of loop
+      }
     }
-  } while (queue.length != 0 || foundEnd)
+  }
 
-  return path;
+  return queue;
 }
 
-// Walk back function from end to start using parent nodes
+
+// Check if cordinate [x,y] is in the queue array
+function isInQueue(cord: number[], queue: number[][]): boolean {
+
+  for (let c of queue) {
+    if (cordinatesEqual(cord, c)) {
+      return true;
+    }
+  };
+
+  return false;
+}
