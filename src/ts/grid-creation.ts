@@ -9,8 +9,9 @@ export default function createGrid(limitX = 50, limitY = 30): NodeObj[][] {
     for (let x = 0; x < limitX; x++) {
       grid[y][x] = {
         isStart: (x == 3 && y == 12) || false,
-        isEnd: (x == 44 && y == 16) || false,
+        isEnd: (x == 8 && y == 21) || false,
         isPath: false,
+        wasChecked: false,
         parent: null,
         x: x,
         y: y,

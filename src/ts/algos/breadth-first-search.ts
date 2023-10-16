@@ -1,49 +1,42 @@
 //Breadth First Search
 
 import { NodeObj } from '../interfaces.ts';
-import { cordinatesEqual } from '../helper-funcs.ts';
+import { cordinatesEqual, walkBackCoordinates } from '../helper-funcs.ts';
 
 export default function breadthFirst(start: number[], end: number[], grid: NodeObj[][]): number[][] {
 
   let queue: number[][] = [start];
+  let endFound: boolean = false;
 
-  // grid[y][x] to find the node 
-  // queue.push() to add to the end of array
-  // Use queue.slice(1) to return new array without first element
+  do {
+    // first node in queue x & y
+    let [x, y] = [queue[0][0], queue[0][1]];
 
+    // Loop through neighbors for grid[y][x]
+    for (let i = 0; i < grid[y][x].neighbors.length; i++) {
 
-  for (let j = 0; j < 10; j++) {
-    /* TODO
-     * 1. testing if adding to queue works
-     * 2. Refresh queue and take out first element
-     * Expected result []
-    */
-    let x = queue[0][0];
-    let y = queue[0][1];
+      let neighborCoord = grid[y][x].neighbors[i];
+      let neighborNode = grid[neighborCoord[1]][neighborCoord[0]];
 
-    // Use grid.isPath as a check to see if its been visited 
-    //go through neighbors of first element in queue (careful with infinite loop)
-    for (let i = 0; i < grid[x][y].neighbors[i].length; i++) {
-      let neighbor = grid[x][y].neighbors[i];
+      //End
+      if (cordinatesEqual(neighborCoord, end)) {
+        neighborNode.parent = grid[y][x];
+        endFound = true;
+      }
 
-      if (cordinatesEqual(neighbor, end)) {
-        // End loop & call walk back function outside of loop
+      //Check Nodes
+      else if (!neighborNode.wasChecked && !neighborNode.isStart) {
+        queue.push(neighborCoord);
+        neighborNode.wasChecked = true;
+        neighborNode.parent = grid[y][x];
       }
     }
-  }
 
-  return queue;
-}
+    // remove first item in queue
+    queue = queue.slice(1);
 
+  } while (!endFound);
 
-// Check if cordinate [x,y] is in the queue array
-function isInQueue(cord: number[], queue: number[][]): boolean {
-
-  for (let c of queue) {
-    if (cordinatesEqual(cord, c)) {
-      return true;
-    }
-  };
-
-  return false;
+  //return callback
+  return walkBackCoordinates(end, grid);
 }
