@@ -1,6 +1,31 @@
+// Grid fucntions (Creation, Display)
+
 import { NodeObj } from './interfaces.ts';
 
-export default function createGrid(limitX = 50, limitY = 30): NodeObj[][] {
+
+// Display grid Nodes as <div> with appropriate classes depending on interface labels
+export function displayGrid(gridHtml: HTMLElement | null, gridArr: NodeObj[][]) {
+  if (gridHtml) {
+
+    gridHtml.innerHTML = '';
+
+    for (let y of gridArr) {
+      for (let x of y) {
+        let div = document.createElement("div");
+        div.classList.add("node");
+
+        x.isStart ? div.classList.add("start")
+          : x.isEnd ? div.classList.add("end")
+            : x.isPath ? div.classList.add("path") : ''
+
+        gridHtml.append(div);
+      }
+    }
+  }
+}
+
+// Create a 50x30 grid (default) 
+export function createGrid(limitX = 50, limitY = 30): NodeObj[][] {
   const grid: Array<Array<NodeObj>> = [];
 
   for (let y = 0; y < limitY; y++) {
@@ -22,8 +47,8 @@ export default function createGrid(limitX = 50, limitY = 30): NodeObj[][] {
   return grid;
 }
 
-
-function getNeighbors(x: number, y: number, limitx: number, limity: number): number[][] { // add extra [] to return type
+// Get the coordinates [x,y] of a Node's neighbors in order of -> (top,right,bottom,left)
+function getNeighbors(x: number, y: number, limitx: number, limity: number): number[][] {
   // Corner and Y side nodes
   if (x == 0 || x == limitx) {
     // Top corners
