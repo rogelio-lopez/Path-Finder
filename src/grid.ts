@@ -12,6 +12,7 @@ export function displayGrid(gridHtml: HTMLElement | null, gridArr: NodeObj[][]) 
     for (let y of gridArr) {
       for (let x of y) {
         let div = document.createElement("div");
+        div.setAttribute('coordinate', `${x.x}-${x.y}`);
         div.classList.add("node");
 
         x.isStart ? div.classList.add("start")
