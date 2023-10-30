@@ -3,6 +3,7 @@
 export interface NodeObj {
   isStart: boolean;
   isEnd: boolean;
+  isBlock: boolean;
   isPath: boolean;
   wasChecked: boolean;
   parent: NodeObj | null;

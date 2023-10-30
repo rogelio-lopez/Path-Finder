@@ -18,7 +18,7 @@ export function nodeSelection(keyCode: number, gridArr: NodeObj[][], attribute: 
   }
   // Q - Block
   else if (keyCode == 81) {
-    //updatedGrid[y][x].isBlock = true;
+    updatedGrid[y][x].isBlock = true;
   }
 
   return updatedGrid;

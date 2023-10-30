@@ -17,7 +17,8 @@ export function displayGrid(gridHtml: HTMLElement | null, gridArr: NodeObj[][]) 
 
         x.isStart ? div.classList.add("start")
           : x.isEnd ? div.classList.add("end")
-            : x.isPath ? div.classList.add("path") : ''
+            : x.isPath ? div.classList.add("path")
+              : x.isBlock ? div.classList.add("block") : '';
 
         gridHtml.append(div);
       }
@@ -36,6 +37,7 @@ export function createGrid(limitX = 50, limitY = 30): NodeObj[][] {
       grid[y][x] = {
         isStart: (x == 3 && y == 12) || false,
         isEnd: (x == 8 && y == 21) || false,
+        isBlock: false,
         isPath: false,
         wasChecked: false,
         parent: null,

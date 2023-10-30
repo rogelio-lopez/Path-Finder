@@ -6,8 +6,7 @@ TODO:
 ** - currently working on
 
 1. Node selections ** 
- - add block in grid interface and node class colors
- - add Box with instructions 
+ - Can only select 1 of each (start & end)
 
 2. Add returns to all functions modifying main gridArr 
  - keep updating the main gridArr (in main.ts)
